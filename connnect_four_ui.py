@@ -86,23 +86,6 @@ def main():
                         print("Winner:", winner)
                         pygame.time.delay(2000)
                         running = False
-            """
-            if event.type == pygame.MOUSEBUTTONDOWN and turn == 0:
-                col = get_column_from_mouse(pygame.mouse.get_pos())
-                new_board = drop_piece(board, col, "R")
-
-                if new_board:
-                    game = ConnectFour((game.initial[0]-1, new_board, 1))
-                    board = new_board
-                    turn = 1
-                    draw_board(board)
-
-                    terminal, winner = game.check_four_in_a_row(board)
-                    if terminal:
-                        print("Winner:", winner)
-                        pygame.time.delay(2000)
-                        running = False
-            """
         # Bot Move
         if turn == 0:
             print("Bot thinking...")
