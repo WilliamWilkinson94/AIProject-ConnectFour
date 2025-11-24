@@ -101,11 +101,10 @@ class ConnectFour(search.Problem):
 
         return False, 'E'
   
-board = tuple(tuple('E' for _ in range(6)) for _ in range(7))
-fo1 = ConnectFour(42,board,0)
+if __name__ == "__main__":
+    board = tuple(tuple('E' for _ in range(6)) for _ in range(7))
+    fo1 = ConnectFour((42, board, 0))
 
-
-
-print(search.astar_search(fo1).path())
-print(search.astar_search(fo1).solution())
+    print(search.astar_search(fo1).path())
+    print(search.astar_search(fo1).solution())
 
