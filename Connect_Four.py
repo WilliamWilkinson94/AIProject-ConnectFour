@@ -12,7 +12,7 @@ class ConnectFour(search.Problem):
 
     """ A state is an array of pieces, E = Empty, R = Red, and Y = Yellow, 
     current player's turn: 0 for Bot, 1 for person, and number of pieces left to play.
-    Counter starts at 42"""    
+    Counter starts at 42 in initial call"""    
 
     def __init__(self, initial):
         """ Number of pieces left is listed first followed by grid then turn """
@@ -25,27 +25,31 @@ class ConnectFour(search.Problem):
             An action is placing a piece on the grid """
         cntr = state[0]
         grid = state[1]
-        turn = state[2]
+        turn = bool(state[2])
         all_actions = []
+        if turn:
+            #give control to human, add action x,y
+            else:
+                #what column does can bot put piece in for optimal results x,y
             
       
         return all_actions
 
     def result(self, state, action):
         """ Given state and action, return a new state that is the result of the action.
-            Action is the X, Y location of the ne piece """
+            Action is the X, Y location of the piece """
         cntr = state[0]
-        turn = state[2]
+        turn = bool(state[2])
         
         grid = list(state[1])
         
         grid_lists = [list(t) for t in grid]
-        """ Place piece and decrement counter """ 
+        """ Place piece, decrement counter, and update turn """ 
         cntr = cntr - 1
-        
+        turn = not turn
         
        
-        return (cntr,tuple(grid), turn)
+        return (cntr,tuple(grid), int(turn))
 
     def goal_test(self, state):
         """ State is a goal when counter == 0 or a player has four pieces horizonally, vertically, or diagonally"""
@@ -100,7 +104,21 @@ class ConnectFour(search.Problem):
                     else: return True, 'R'
 
         return False, 'E'
-  
+
+def is_available(board, column):
+      return board[5][column] == 'E'
+
+def get_next_open_row(board, column):
+    for i, row in enumerate(board):
+        if row[column] == 'E':
+            row_index = i
+            break
+    return row_index
+    
+def drop_piece(board, row, column, piece):
+    board[row][column] = piece
+    return board
+
 if __name__ == "__main__":
     board = tuple(tuple('E' for _ in range(6)) for _ in range(7))
     fo1 = ConnectFour((42, board, 0))
